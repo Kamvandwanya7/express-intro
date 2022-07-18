@@ -91,7 +91,7 @@ module.exports = function SettingsBill() {
     }
 
     function totals() {
-        console.log(getTotal('sms') + "sdsdsdsdsds")
+        // console.log(getTotal('sms') + "sdsdsdsdsds")
       
 
         let smsTotal = getTotal('sms')
@@ -116,6 +116,15 @@ module.exports = function SettingsBill() {
         return total >= criticalLevel;
     }
 
+    function totalClassName() {
+        if (hasReachedCriticalLevel()) {
+          return "danger"
+        }
+        if (hasReachedWarningLevel()) {
+          return "warning"
+        }
+      }
+
     return {
         setSettings,
         getSettings,
@@ -124,6 +133,7 @@ module.exports = function SettingsBill() {
         actionsFor,
         totals,
         hasReachedWarningLevel,
-        hasReachedCriticalLevel
+        hasReachedCriticalLevel,
+        totalClassName
     }
 }

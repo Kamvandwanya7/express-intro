@@ -23,6 +23,7 @@ app.get('/', function(req, res){
     res.render("index", {
     setting: settingsBill.getSettings(),
     totals: settingsBill.totals(),
+    totalClassName: settingsBill.totalClassName(),
     })
 });
 
