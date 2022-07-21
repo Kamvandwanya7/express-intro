@@ -4,6 +4,8 @@ const bodyParser= require('body-parser');
 const SettingsBill= require('./settings-bill')
 const app= express();
 const settingsBill= SettingsBill();
+const moment =require('moment')
+
 
 app.engine('handlebars', exphbs.engine({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
@@ -50,11 +52,20 @@ settingsBill.recordAction(req.body.actionType)
 });
 
 app.get('/actions', function (req, res){
+  for(let actionList of settingsBill.actions()){
+// console.log(actionList.timestamp)
+actionList.time= moment(actionList.timestamp, 'MMMM Do YYYY, h:mm:ss').fromNow()
+  }
  res.render('actions', {actions: settingsBill.actions()});
+ 
 });
 
 app.get('/actions/:actionType', function (req, res){
   const actionType= req.params.actionType;
+  for(let actionList of settingsBill.actions()){
+
+  actionList.time= moment(actionList.timestamp, 'MMMM Do YYYY, h:mm:ss').fromNow()
+  }
   res.render('actions', {actions: settingsBill.actionsFor(actionType)});
 
 

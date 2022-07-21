@@ -3,11 +3,11 @@ module.exports = function SettingsBill() {
     let smsCost;
     let callCost;
     let warningLevel;
-    let criticalLevel; 
+    let criticalLevel;
 
     let actionList = [];
 
-    function setSettings (settings) {
+    function setSettings(settings) {
         smsCost = Number(settings.smsCost);
         callCost = Number(settings.callCost);
         warningLevel = settings.warningLevel;
@@ -15,7 +15,7 @@ module.exports = function SettingsBill() {
     }
 
     function getSettings
-    () {
+        () {
         return {
             smsCost,
             callCost,
@@ -27,25 +27,29 @@ module.exports = function SettingsBill() {
     function recordAction(action) {
 
         let cost = 0;
-        if (action === 'sms'){
+        if (action === 'sms') {
             cost = smsCost;
         }
-        else if (action === 'call'){
+        else if (action === 'call') {
             cost = callCost;
         }
 
         actionList.push({
             type: action,
             cost,
-            timestamp: new Date()
+            timestamp: new Date(),
+             time: '',
+        
+
+            // timestamp: m.format("s")
         });
     }
 
-    function actions(){
+    function actions() {
         return actionList;
     }
 
-    function actionsFor(type){
+    function actionsFor(type) {
         const filteredActions = [];
 
         // loop through all the entries in the action list 
@@ -65,7 +69,7 @@ module.exports = function SettingsBill() {
 
     function getTotal(type) {
         let total = 0;
-        
+
         // loop through all the entries in the action list 
         for (let index = 0; index < actionList.length; index++) {
             const action = actionList[index];
@@ -92,38 +96,39 @@ module.exports = function SettingsBill() {
 
     function totals() {
         // console.log(getTotal('sms') + "sdsdsdsdsds")
-      
 
-        let smsTotal = getTotal('sms')
-        let callTotal = getTotal('call')
+
+        let smsTotal = getTotal('sms').toFixed(2)
+        let callTotal = getTotal('call').toFixed(2)
+        let grandTtl= grandTotal().toFixed(2)
         return {
             smsTotal,
             callTotal,
-            grandTotal : grandTotal()
+            grandTotal: grandTtl,
         }
     }
 
-    function hasReachedWarningLevel(){
+    function hasReachedWarningLevel() {
         const total = grandTotal();
-        const reachedWarningLevel = total >= warningLevel 
+        const reachedWarningLevel = total >= warningLevel
             && total < criticalLevel;
 
         return reachedWarningLevel;
     }
 
-    function hasReachedCriticalLevel(){
+    function hasReachedCriticalLevel() {
         const total = grandTotal();
         return total >= criticalLevel;
     }
 
     function totalClassName() {
         if (hasReachedCriticalLevel()) {
-          return "danger"
+            return "danger"
         }
         if (hasReachedWarningLevel()) {
-          return "warning"
+            return "warning"
         }
-      }
+    }
 
     return {
         setSettings,
