@@ -39,9 +39,7 @@ module.exports = function SettingsBill() {
             cost,
             timestamp: new Date(),
              time: '',
-        
-
-            // timestamp: m.format("s")
+         // timestamp: m.format("s")
         });
     }
 

@@ -19,7 +19,7 @@ app.use(bodyParser.json())
 
 app.get('/', function(req, res){
   //  settingsBill.setCallCost(),
-  console.log(req.body.actionType)
+  // console.log(req.body.actionType)
 
 //console.log(settingsBill.totals())
     res.render("index", {
