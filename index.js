@@ -45,7 +45,7 @@ app.post('/settings', function (req, res){
 });
 
 app.post('/action', function (req, res){
-  console.log(req.body.actionType)
+  // console.log(req.body.actionType)
   if(req.body.actionType) {
     settingsBill.recordAction(req.body.actionType)
   }
